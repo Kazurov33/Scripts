@@ -1,0 +1,33 @@
+﻿@model Asp.Net_MVC.Models.Scene
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Удалить</h2>
+
+<h3>Вы умерены что хотите удалить этот сценарий?</h3>
+<div>
+    <h4>Сценарий</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Название сценария
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Название скрипта
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Script.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteScene">
+        <input type="hidden" asp-for="SceneId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a href="##" onClick="history.go(-1); return false;">Назад к списку сценариев</a>
+    </form>
+</div>

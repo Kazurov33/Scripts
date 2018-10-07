@@ -1,0 +1,26 @@
+﻿@model Asp.Net_MVC.Models.Group
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Удаление</h2>
+
+<h3>Вы действительно хотите удалить эту группу?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteGroup" asp-controller="Groups">
+        <input type="hidden" asp-for="GroupId" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a href="##" onClick="history.go(-1); return false;">Back to List</a>
+    </form>
+</div>

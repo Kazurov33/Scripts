@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Asp.Net_MVC.Models.Scene>
+
+@{
+    ViewData["Title"] = "Список сценариев";
+}
+
+<h2>Список сценариев</h2>
+<p>
+    <!-- Тут надо передать id Скрипта в котором действия происходят но мне не понятно как-->
+    <a asp-action="CreateScene" asp-route-id="">Создать новый сценарий</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название сценария
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-controller="Points" asp-action="Index" asp-route-id="@item.SceneId">@Html.DisplayFor(modelItem => item.Name)</a>
+</td>
+            <td>
+                <a asp-action="EditScene" asp-route-id="@item.SceneId">Редактировать</a> |
+                <a asp-action="DeleteScene" asp-route-id="@item.SceneId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="IndexScript", asp-controller="Scripts">Назад к списку скриптов</a>
+</p>

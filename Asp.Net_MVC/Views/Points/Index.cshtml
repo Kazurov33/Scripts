@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Asp.Net_MVC.Models.Group>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2></h2>
+
+<p>
+    <a asp-controller="Groups" asp-action="CreateGroup">Создать группу</a>
+</p>
+<!-- Перебор всех элементов в массиве групп и создание для каждого строки. В строке три колонки с данными-->
+@foreach (Group p in Model)
+{
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"> @Html.DisplayFor(modelItem => p.Name)</div>
+                <!-- Вложенный цикл выдает ошибку преобразования Group в Point-->
+                <div class="panel-body">
+                    @Html.DisplayFor(modelItem => p.Points) <!--Выводит исключительно id выражений в группе-->
+                    <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="">
+                        <span class="glyphicon-pencil"> </span>
+                    </a>
+                </div>
+
+                <div class="panel-footer">
+                    <a class="btn btn-default" style="font-size: 10px" asp-controller="Points" asp-action="Create" asp-route-id="@p.GroupId">
+                        Добавить выражение <span class="glyphicon-plus"></span>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!--Место для динамичного окна с текстом инструкции к каждому Point-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a asp-action="EditGroup" asp-controller="Groups" asp-route-id="@p.GroupId">Редактировать Группу</a> |
+                    <a asp-action="DeleteGroup" asp-controller="Groups" asp-route-id="@p.GroupId">Удалить Группу</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

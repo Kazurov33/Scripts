@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Asp.Net_MVC.Models.Script>
+@{
+    //ViewData["Title"] = "Список выражений";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список скриптов</title>
+</head>
+<body>
+    <h3>Скрипты</h3>
+    <table>
+        <tr>
+            <td>Название</td>
+            <td>Количество</td>
+        </tr>
+        @foreach (var script in Model)
+        {
+            <tr>
+                <td>@script.Name</td>
+                <td>@script.Count</td>
+            </tr>
+        }
+    </table>
+    @Html.ActionLink("Добавить скрипт","Create", "Scripts")
+</body>
+</html>

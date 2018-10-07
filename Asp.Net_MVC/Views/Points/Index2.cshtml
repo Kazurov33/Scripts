@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Asp.Net_MVC.Models.Group>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-controller="Groups" asp-action="CreateGroup">Создать группу</a>
+</p>
+
+@foreach (var g in Model)
+{
+    <div class="col-lg-2">
+        <div class="list-group">
+            <div class="list-group-item-heading">@Html.DisplayFor(modelItem => g.Name)</div>
+
+            <div class="list-group-item">
+                @Html.DisplayFor(modelItem => g.Point.Name)
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @Html.DisplayFor(modelItem => g.Point.Context)
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a asp-action="EditGroup" asp-controller="Groups" asp-route-id="@g.GroupId">Редактировать Группу</a> |
+                <a asp-action="DeleteGroup" asp-controller="Groups" asp-route-id="@g.GroupId">Удалить Группу</a>
+            </div>
+        </div>
+    </div>
+}
+
