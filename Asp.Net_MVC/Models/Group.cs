@@ -13,12 +13,6 @@ namespace Asp.Net_MVC.Models
         public int SceneId { get; set; }
         public Scene Scene { get; set; }
 
-        public Point Point { get; set; }
-
-        public IEnumerable<Point> Points { get; set; }
-        public List<Point>
-        {
-
-        }
+        public virtual List<Point> Points { get; set; }
     }
 }

@@ -18,10 +18,10 @@
                 <div class="panel-heading"> @Html.DisplayFor(modelItem => g.Name)</div>
                 <!-- Вложенный цикл выдает ошибку преобразования Group в Point-->
                 <div class="panel-body">
-                    @for (int x = 0; x < g.Points.Count; x++)
+                    @foreach(var p in g.Points)
                     {
                         <br />
-                        @Html.DisplayFor(modelItem => g.Point.Name) <!--Выводит исключительно id выражений в группе-->
+                        @Html.DisplayFor(modelItem => p.Name) <!--Выводит исключительно id выражений в группе-->
                         <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="">
                             <span class="glyphicon-pencil"> </span>
                         </a>
