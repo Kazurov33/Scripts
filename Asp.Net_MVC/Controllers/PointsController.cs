@@ -9,6 +9,7 @@ using Asp.Net_MVC.Models;
 
 namespace Asp.Net_MVC.Controllers
 {
+    
     public class PointsController : Controller
     {
         private readonly ScriptContext _context;
@@ -20,14 +21,18 @@ namespace Asp.Net_MVC.Controllers
 
         // GET: Points
         // Вывод групп и текстов конкретного сценария и конкретного скрипта
-        public async Task<IActionResult> Index(int? IdSCE, int? IdSCR) // IdSCE - Id сценария, IdSCR - Id скрипта
+        public async Task<IActionResult> Index(int IdSCE, int? IdSCR, int? id) // IdSCE - Id сценария, IdSCR - Id скрипта
         {
-            // Попытка реализации объединения 
-            var scriptContext = _context.Groups.Include(p => p.Points);
-            return View(await scriptContext.ToListAsync());
+            // Реализации объединения 
+                var scriptContext = _context.Groups
+                    .Include(p => p.Points)
+                    .Where(m => m.SceneId == IdSCE)
+                    .Where(t => t.Scene.ScriptId == IdSCR);
+                return View(await scriptContext.ToListAsync());
+
         }
 
-        // GET: Points/Create
+        // GET: Points/Creates
         public IActionResult Create(int? idGroup)
         {
             ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId");
@@ -43,7 +48,7 @@ namespace Asp.Net_MVC.Controllers
             {
                 _context.Add(point);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Points", new { id = point.Group.SceneId});
+                return RedirectToAction("Index", "Points", new { IdSCE = point.Group.SceneId});
             }
             ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId", point.GroupId);
             return View(point);
@@ -94,7 +99,7 @@ namespace Asp.Net_MVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Points", new { id = point.Group.SceneId });
+                return RedirectToAction("Index", "Points", new { IdSCE = point.Group.SceneId });
             }
             ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId", point.GroupId);
             return View(point);
@@ -127,7 +132,7 @@ namespace Asp.Net_MVC.Controllers
             var point = await _context.Points.FindAsync(id);
             _context.Points.Remove(point);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Points", new { id = point.Group.SceneId });
+            return RedirectToAction("Index", "Points", new { IdSCE = point.Group.SceneId });
         }
 
         private bool PointExists(int id)

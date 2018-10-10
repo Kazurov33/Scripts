@@ -43,21 +43,21 @@ namespace Asp.Net_MVC.Controllers
                         GroupId = group.GroupId,
                     });
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Points", new { id = group.SceneId });
+                return RedirectToAction("Index", "Points", new { IdSCE = group.SceneId });
             }
             ViewData["SceneId"] = new SelectList(_context.Scenes, "SceneId", "SceneId", @group.SceneId);
             return View(@group);
         }
 
         // GET: Groups/EditGroup/
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? IdGr)
         {
-            if (id == null)
+            if (IdGr == null)
             {
                 return NotFound();
             }
 
-            var @group = await _context.Groups.FindAsync(id);
+            var @group = await _context.Groups.FindAsync(IdGr);
             if (@group == null)
             {
                 return NotFound();
@@ -69,9 +69,9 @@ namespace Asp.Net_MVC.Controllers
         // POST: Groups/EditGroup/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditGroup(int id, [Bind("GroupId,Name,SceneId")] Group @group)
+        public async Task<IActionResult> EditGroup(int IdGr, [Bind("GroupId,Name,SceneId")] Group @group)
         {
-            if (id != @group.GroupId)
+            if (IdGr != @group.GroupId)
             {
                 return NotFound();
             }
@@ -94,23 +94,23 @@ namespace Asp.Net_MVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Points", new { id = group.SceneId });
+                return RedirectToAction("Index", "Points", new { IdSCE = group.SceneId });
             }
             ViewData["SceneId"] = new SelectList(_context.Scenes, "SceneId", "SceneId", @group.SceneId);
             return View(@group);
         }
 
         // GET: Groups/DeleteGroup/
-        public async Task<IActionResult> DeleteGroup(int? id)
+        public async Task<IActionResult> DeleteGroup(int? IdGr)
         {
-            if (id == null)
+            if (IdGr == null)
             {
                 return NotFound();
             }
 
             var group = await _context.Groups
                 .Include(s => s.Scene)
-                .FirstOrDefaultAsync(m => m.GroupId == id);
+                .FirstOrDefaultAsync(m => m.GroupId == IdGr);
             if (group == null)
             {
                 return NotFound();
@@ -122,18 +122,18 @@ namespace Asp.Net_MVC.Controllers
         // POST: Groups/DeleteGroup/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int IdGr, int IdSCE)
         {
-            var group = await _context.Groups.FindAsync(id);
+            var group = await _context.Groups.FindAsync(IdGr);
             int oldId = group.SceneId;
             _context.Groups.Remove(group);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Points", new { id = oldId });
+            return RedirectToAction("Index", "Points", new { IdSCE = oldId });
         }
 
-        private bool GroupExists(int id)
+        private bool GroupExists(int IdGr)
         {
-            return _context.Groups.Any(e => e.GroupId == id);
+            return _context.Groups.Any(e => e.GroupId == IdGr);
         }
     }
 }

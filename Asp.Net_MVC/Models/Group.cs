@@ -13,11 +13,6 @@ namespace Asp.Net_MVC.Models
         public int SceneId { get; set; }
         public Scene Scene { get; set; }
 
-        public ICollection<Point> Points { get; set; } 
-        public Group()
-        {
-            Points = new List<Point>();
-        }
-
+        public virtual List<Point> Points { get; set; }
     }
 }
