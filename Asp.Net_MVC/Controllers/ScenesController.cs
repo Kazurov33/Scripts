@@ -52,7 +52,7 @@ namespace Asp.Net_MVC.Controllers
             {
                 _context.Add(scene);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("IndexScene", "Scenes", new { id = scene.ScriptId });
+                return RedirectToAction("IndexScene", "Scenes", new { IdSCE = scene.ScriptId });
             }
             ViewData["ScriptId"] = new SelectList(_context.Scripts, "ScriptId", "ScriptId", scene.ScriptId);
             return View(scene);
@@ -104,7 +104,7 @@ namespace Asp.Net_MVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("IndexScene", "Scenes", new { id = scene.ScriptId });
+                return RedirectToAction("IndexScene", "Scenes", new { IdSCE = scene.ScriptId });
             }
             ViewData["ScriptId"] = new SelectList(_context.Scripts, "ScriptId", "ScriptId", scene.ScriptId);
             return View(scene);
@@ -137,7 +137,7 @@ namespace Asp.Net_MVC.Controllers
             var scene = await _context.Scenes.FindAsync(id);
             _context.Scenes.Remove(scene);
             await _context.SaveChangesAsync();
-            return RedirectToAction("IndexScene", "Scenes", new { id = scene.SceneId });
+            return RedirectToAction("IndexScene", "Scenes", new { IdSCE = scene.SceneId });
         }
 
         private bool SceneExists(int id)

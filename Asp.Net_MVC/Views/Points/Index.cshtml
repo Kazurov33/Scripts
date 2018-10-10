@@ -10,49 +10,60 @@
     <a asp-controller="Groups" asp-action="CreateGroup">Создать группу</a>
 </p>
 <!-- Перебор всех элементов в массиве групп и создание для каждого строки. В строке три колонки с данными-->
-@foreach(Group g in Model)
-{
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"> @Html.DisplayFor(modelItem => g.Name)</div>
-                <!-- Вложенный цикл выдает ошибку преобразования Group в Point-->
-                <div class="panel-body">
-                    @foreach(var p in g.Points)
-                    {
-                        <br />
-                        @Html.DisplayFor(modelItem => p.Name) <!--Выводит исключительно id выражений в группе-->
-                        <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="">
-                            <span class="glyphicon-pencil"> </span>
+            @foreach (Group g in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading"> @Html.DisplayFor(modelItem => g.Name)</div>
+                    <div class="panel-body">
+                        @foreach (var p in g.Points)
+                        {
+                            <a class="btn btn-default" aria-label="@p.Name" asp-action="Index" asp-route-IdSCE="@g.SceneId" asp-route-id="@p.Id">@p.Name</a>
+                            <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="@p.Id">
+                                <span class="glyphicon-pencil"> </span>
+                            </a>
+                        }
+                    </div>
+
+                    <div class="panel-footer">
+                        <a class="btn btn-default" style="font-size: 10px" asp-controller="Points" asp-action="Create" asp-route-IdGr="@g.GroupId">
+                            Добавить выражение <span class="glyphicon-plus"></span>
                         </a>
-                    }
-                </div>
 
-                <div class="panel-footer">
-                    <a class="btn btn-default" style="font-size: 10px" asp-controller="Points" asp-action="Create" asp-route-id="@g.GroupId">
-                        Добавить выражение <span class="glyphicon-plus"></span>
-                    </a>
+                    </div>
 
                 </div>
-
-            </div>
+            }
         </div>
-
         <div class="col-lg-8">
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body" style="min-height: 471px">
+                    @foreach (Group g in Model)
+                    {
+                        @foreach(var p in g.Points)
+                        {
+                            
+                            @p.Context
+                        }
+                    }
                     <!--Место для динамичного окна с текстом инструкции к каждому Point-->
                 </div>
             </div>
         </div>
-        <div class="col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a asp-action="EditGroup" asp-controller="Groups" asp-route-id="@g.GroupId">Редактировать Группу</a> |
-                    <a asp-action="DeleteGroup" asp-controller="Groups" asp-route-id="@g.GroupId">Удалить Группу</a>
-                </div>
-            </div>
-        </div>
 
+        <div class="col-lg-2">
+            @foreach (Group g in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a asp-action="EditGroup" asp-controller="Groups" asp-route-IdGr="@g.GroupId">Редактировать Группу</a> |
+                        <a asp-action="DeleteGroup" asp-controller="Groups" asp-route-IdGr="@g.GroupId">Удалить Группу</a>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
-}
+</div>
