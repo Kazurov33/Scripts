@@ -21,18 +21,26 @@ namespace Asp.Net_MVC.Controllers
 
         // GET: Points
         // Вывод групп и текстов конкретного сценария и конкретного скрипта
-        public async Task<IActionResult> Index(int IdSCE, int? IdSCR, int? id) // IdSCE - Id сценария, IdSCR - Id скрипта
+        public async Task<IActionResult> Index(int IdSCE, int? id) // IdSCE - Id сценария,
         {
-            // Реализации объединения 
+            // Реализации объединения
+
                 var scriptContext = _context.Groups
                     .Include(p => p.Points)
-                    .Where(m => m.SceneId == IdSCE)
-                    .Where(t => t.Scene.ScriptId == IdSCR);
+                    .Where(m => m.SceneId == IdSCE);
                 return View(await scriptContext.ToListAsync());
 
         }
 
-        // GET: Points/Creates
+        public ActionResult IndexPartial(int id)
+        {
+            var pointContext = _context.Points
+                .Include(g => g.Group)
+                .Where(s => s.Id == id).ToList();
+            return PartialView(pointContext);
+        }
+
+            // GET: Points/Creates
         public IActionResult Create(int? idGroup)
         {
             ViewData["GroupId"] = new SelectList(_context.Groups, "GroupId", "GroupId");

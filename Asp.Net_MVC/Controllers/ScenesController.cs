@@ -104,7 +104,7 @@ namespace Asp.Net_MVC.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("IndexScene", "Scenes", new { IdSCE = scene.ScriptId });
+                return RedirectToAction("IndexScene", "Scenes", new { IdSCR = scene.ScriptId });
             }
             ViewData["ScriptId"] = new SelectList(_context.Scripts, "ScriptId", "ScriptId", scene.ScriptId);
             return View(scene);

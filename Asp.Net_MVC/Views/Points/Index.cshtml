@@ -21,7 +21,9 @@
                     <div class="panel-body">
                         @foreach (var p in g.Points)
                         {
-                            <a class="btn btn-default" aria-label="@p.Name" asp-action="Index" asp-route-IdSCE="@g.SceneId" asp-route-id="@p.Id">@p.Name</a>
+                            <input class="btn btn-default" type="submit" aria-label="@p.Name" value="@p.Name" 
+                            asp-action="IndexPartial" asp-controller="Points" asp-route-IdSCE="@g.SceneId" asp-route-id="@p.Id" 
+                            data-ajax="true" data-ajax-mode="replace" data-ajax-update="#TextBox" data-ajax-method="post" >
                             <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="@p.Id">
                                 <span class="glyphicon-pencil"> </span>
                             </a>
@@ -38,20 +40,9 @@
                 </div>
             }
         </div>
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-body" style="min-height: 471px">
-                    @foreach (Group g in Model)
-                    {
-                        @foreach(var p in g.Points)
-                        {
-                            
-                            @p.Context
-                        }
-                    }
+        <div id="TextBox" class="col-lg-8" >
+                    @{ await Html.RenderPartialAsync("IndexPartial");}
                     <!--Место для динамичного окна с текстом инструкции к каждому Point-->
-                </div>
-            </div>
         </div>
 
         <div class="col-lg-2">
