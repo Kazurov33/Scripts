@@ -13,19 +13,24 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-4">
             @foreach (Group g in Model)
             {
                 <div class="panel panel-default">
-                    <div class="panel-heading"> @Html.DisplayFor(modelItem => g.Name)</div>
+                    <div class="panel-heading"> @Html.DisplayFor(modelItem => g.Name)
+                        <a class="btn btn-default" aria-label="Редактирование" asp-action="EditGroup" asp-route-idGR="@g.GroupId" style="font-size: small">
+                            <span class="glyphicon glyphicon-pencil"> </span>
+                        </a>
+                        <a class="btn btn-default" aria-label="Удаление" asp-action="DeleteGroup" asp-route-id="@g.GroupId" style="font-size: small">
+                            <span class="glyphicon glyphicon-trash"> </span>
+                        </a>
+                    </div>
                     <div class="panel-body">
                         @foreach (var p in g.Points)
                         {
-                            <input class="btn btn-default" type="submit" aria-label="@p.Name" value="@p.Name" 
-                            asp-action="IndexPartial" asp-controller="Points" asp-route-IdSCE="@g.SceneId" asp-route-id="@p.Id" 
-                            data-ajax="true" data-ajax-mode="replace" data-ajax-update="#TextBox" data-ajax-method="post" >
-                            <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="@p.Id">
-                                <span class="glyphicon-pencil"> </span>
+                            <button type="button" class="btn btn-primary" id="ModalButton" data-toggle="modal" data-target="#ContextModal" data-content="@p.Context" data-backdrop="false">@p.Name</button>
+                            <a class="btn btn-default" aria-label="Редактирование" asp-action="Edit" asp-route-id="@p.Id" style="font-size: small">
+                                <span class="glyphicon glyphicon-pencil"> </span>
                             </a>
                         }
                     </div>
@@ -40,21 +45,26 @@
                 </div>
             }
         </div>
-        <div id="TextBox" class="col-lg-8" >
-                    @{ await Html.RenderPartialAsync("IndexPartial");}
-                    <!--Место для динамичного окна с текстом инструкции к каждому Point-->
-        </div>
-
-        <div class="col-lg-2">
-            @foreach (Group g in Model)
-            {
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a asp-action="EditGroup" asp-controller="Groups" asp-route-IdGr="@g.GroupId">Редактировать Группу</a> |
-                        <a asp-action="DeleteGroup" asp-controller="Groups" asp-route-IdGr="@g.GroupId">Удалить Группу</a>
-                    </div>
+        <div class="col-lg-8">
+            <div class="modal-content" id="ContextModal">
+                <div class="modal-body">
+                    <p id="Context" style="min-height: 300px" />
                 </div>
-            }
+            </div>
         </div>
     </div>
 </div>
+@section scripts
+    {
+    <script type="text/javascript">
+        $('#ContextModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Кнопка, что спровоцировало модальное окно
+
+            var content = button.data('content') // Извлечение информации из данных-* атрибутов
+
+            var modal = $(this)
+            modal.find('#Context').text(content);
+        });
+    </script>
+}
+

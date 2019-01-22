@@ -1,39 +1,37 @@
 ﻿@model Asp.Net_MVC.Models.Script
 
-@{
-    ViewData["Title"] = "Delete";
-}
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Вы уверены что хотите удалить этот скрипт?</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+                Название
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                Дата
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt>
+                Количество чего-то
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Count)
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <form asp-action="DeleteScript">
+            <input type="hidden" asp-for="ScriptId" />
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </form>
+    </div>
 
-<h2>Удалить</h2>
-
-<h3>Вы уверены что хотите удалить этот скрипт?</h3>
-<div>
-    <h4>Скрипт</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Название скрипта
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            Дата создания
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt>
-            Количество "чего-то"
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Count)
-        </dd>
-    </dl>
-    
-    <form asp-action="DeleteScript">
-        <input type="hidden" asp-for="ScriptId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="IndexScript">Назад к списку скриптов</a>
-    </form>
 </div>

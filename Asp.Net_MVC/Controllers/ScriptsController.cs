@@ -29,7 +29,7 @@ namespace Asp.Net_MVC.Views
         // GET: Scripts/CreateScript
         public IActionResult CreateScript()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Scripts/CreateScript
@@ -59,7 +59,7 @@ namespace Asp.Net_MVC.Views
             {
                 return NotFound();
             }
-            return View(script);
+            return PartialView(script);
         }
 
         // POST: Scripts/EditScript
@@ -110,7 +110,7 @@ namespace Asp.Net_MVC.Views
                 return NotFound();
             }
 
-            return View(script);
+            return PartialView(script);
         }
 
         // POST: Scripts/DeleteScript

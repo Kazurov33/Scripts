@@ -1,43 +1,83 @@
 ﻿@model Asp.Net_MVC.Models.Script
 
-
-<div class="modal-dialog modal-lg modal-dialog-centered">
+<<<<<<< HEAD
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавить скрипт</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary()
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <form asp-action="CreateScript">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Date" class="control-label"></label>
+                                <input asp-for="Date" class="form-control" />
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Count" class="control-label"></label>
+                                <input asp-for="Count" class="form-control" />
+                                <span asp-validation-for="Count" class="text-danger"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" formnovalidate class="e-control e-btn e-primary" onclick="addRoomSubmit()">
+                    <i class="fas fa-plus-circle"></i> Добавить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+=======
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Добавить скрипт</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+            <h4>Создание</h4>
         </div>
         <div class="modal-body">
-            @Html.ValidationSummary()
-            <div class="form-row">
-                <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-4">
                     <form asp-action="CreateScript">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="Name" class="control-label"></label>
+                            <label class="control-label">Название</label>
                             <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Date" class="control-label"></label>
+                            <label class="control-label">Дата создания</label>
                             <input asp-for="Date" class="form-control" />
                             <span asp-validation-for="Date" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Count" class="control-label"></label>
+                            <label class="control-label">Количество чего-то</label>
                             <input asp-for="Count" class="form-control" />
                             <span asp-validation-for="Count" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-default" />
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" formnovalidate class="e-control e-btn e-primary" onclick="addRoomSubmit()">
-                <i class="fas fa-plus-circle"></i> Добавить
-            </button>
-        </div>
     </div>
-</div>
 
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+>>>>>>> afc81078510683ad2d50b8cd93655d86865ed152
